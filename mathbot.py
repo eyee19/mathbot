@@ -15,9 +15,25 @@ async def on_ready():
     print('-----')
 
 @bot.command()
-async def add(ctx, a: int, b: int):
+async def add(ctx, a: float, b: float):
     await ctx.send("The answer is: ")
+    #await client.send_message(message.channel, ctx.author)
     await ctx.send(a+b)
+
+@bot.command()
+async def minus(ctx, a: float, b: float):
+    await ctx.send("The answer is: ")
+    await ctx.send(a-b)
+
+@bot.command()
+async def mult(ctx, a: float, b: float):
+    await ctx.send("The answer is: ")
+    await ctx.send(a*b)
+
+@bot.command()
+async def div(ctx, a: float, b: float):
+    await ctx.send("The answer is: ")
+    await ctx.send(a/b)
 
 @bot.command()
 async def percentof(ctx, a: float, b: float):
@@ -28,8 +44,7 @@ async def percentof(ctx, a: float, b: float):
 async def info(ctx):
     embed = discord.Embed(title="Mathbot", description="A bot that does simple math calculations and shortcuts.", color=0xeee657)
     # give users a link to invite this bot to their server
-    embed.add_field(name="Invite", value="[Invite link(paste this in your browser)](OAuth2 link goes here)")
-
+    embed.add_field(name="Invite", value="[Invite link(paste this in your browser)](OAuth link goes here)")
     await ctx.send(embed=embed)
 
 bot.remove_command("help")
@@ -38,10 +53,13 @@ async def help(ctx):
     embed = discord.Embed(title="Mathbot", description="List of commands are:", color=0xeee657)
 
     embed.add_field(name="$add X Y", value="Returns the addition of **X** and **Y**", inline=False)
+    embed.add_field(name="$minus X Y", value="Returns **X** subtracted by **Y**", inline=False)
+    embed.add_field(name="$mult X Y", value="Returns **X** multiplied by **Y**", inline=False)
+    embed.add_field(name="$div X Y", value="Returns **X** divided by **Y**", inline=False)
     embed.add_field(name="$percentof X Y", value="Returns **X** percent of **Y**", inline=False)
     embed.add_field(name="$info", value="Displays information about Mathbot", inline=False)
     embed.add_field(name="$help", value="Gives this message", inline=False)
 
     await ctx.send(embed=embed)
 
-bot.run("Bot secret token goes here")
+bot.run("Bot token goes here")
