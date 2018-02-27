@@ -2,7 +2,8 @@
 #Author: Everett Yee
 
 import discord
-#print(discord.__version__)
+print(discord.__version__)
+import asyncio
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix='$', description="A bot that does simple math calculations and shortcuts.")
@@ -16,35 +17,34 @@ async def on_ready():
 
 @bot.command()
 async def add(ctx, a: float, b: float):
-    await ctx.send("The answer is: ")
-    #await client.send_message(message.channel, ctx.author)
+    await ctx.send(ctx.message.author.mention + " the answer is:")
     await ctx.send(a+b)
 
 @bot.command()
 async def minus(ctx, a: float, b: float):
-    await ctx.send("The answer is: ")
+    await ctx.send(ctx.message.author.mention + " the answer is:")
     await ctx.send(a-b)
 
 @bot.command()
 async def mult(ctx, a: float, b: float):
-    await ctx.send("The answer is: ")
+    await ctx.send(ctx.message.author.mention + " the answer is:")
     await ctx.send(a*b)
 
 @bot.command()
 async def div(ctx, a: float, b: float):
-    await ctx.send("The answer is: ")
+    await ctx.send(ctx.message.author.mention + " the answer is:")
     await ctx.send(a/b)
 
 @bot.command()
 async def percentof(ctx, a: float, b: float):
-    await ctx.send("The answer is: ")
+    await ctx.send(ctx.message.author.mention + " the answer is:")
     await ctx.send((a*b)/100)
 
 @bot.command()
 async def info(ctx):
     embed = discord.Embed(title="Mathbot", description="A bot that does simple math calculations and shortcuts.", color=0xeee657)
     # give users a link to invite this bot to their server
-    embed.add_field(name="Invite", value="[Invite link(paste this in your browser)](OAuth link goes here)")
+    embed.add_field(name="Invite", value="[Invite link(paste this in your browser)](https://discordapp.com/api/oauth2/authorize?client_id=417040473316786186&permissions=2048&scope=bot)")
     await ctx.send(embed=embed)
 
 bot.remove_command("help")
@@ -62,4 +62,4 @@ async def help(ctx):
 
     await ctx.send(embed=embed)
 
-bot.run("Bot token goes here")
+bot.run("NDE3MDQwNDczMzE2Nzg2MTg2.DXc0Pw.rtggjKy6O0fxb2UVFLMnYlsorY8")
