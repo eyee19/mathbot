@@ -15,6 +15,7 @@ async def on_ready():
     print(bot.user.id)
     print('-----')
 
+#Basic math
 @bot.command()
 async def add(ctx, a: float, b: float):
     await ctx.send(ctx.message.author.mention + " the answer is:")
@@ -35,6 +36,28 @@ async def div(ctx, a: float, b: float):
     await ctx.send(ctx.message.author.mention + " the answer is:")
     await ctx.send(a/b)
 
+#FOIL method, (++) (+-) (--) (-+), only for whole numbers, not binomials
+@bot.command()
+async def plusplus(ctx, a: float, b: float, c: float, d: float):
+    await ctx.send(ctx.message.author.mention + " the answer is:")
+    await ctx.send((a*c)+(a*d)+(b*c)+(b*d))
+
+@bot.command()
+async def plusminus(ctx, a: float, b: float, c: float, d: float):
+    await ctx.send(ctx.message.author.mention + " the answer is:")
+    await ctx.send((a*c)-(a*d)+(b*c)-(b*d))
+
+@bot.command()
+async def minusminus(ctx, a: float, b: float, c: float, d: float):
+    await ctx.send(ctx.message.author.mention + " the answer is:")
+    await ctx.send((a*c)-(a*d)-(b*c)+(b*d))
+
+@bot.command()
+async def minusplus(ctx, a: float, b: float, c: float, d: float):
+    await ctx.send(ctx.message.author.mention + " the answer is:")
+    await ctx.send((a*c)+(a*d)-(b*c)-(b*d))
+
+#Cool shortcuts
 @bot.command()
 async def percentof(ctx, a: float, b: float):
     await ctx.send(ctx.message.author.mention + " the answer is:")
@@ -50,12 +73,18 @@ async def info(ctx):
 bot.remove_command("help")
 @bot.command()
 async def help(ctx):
-    embed = discord.Embed(title="Mathbot", description="List of commands are:", color=0xeee657)
+    embed = discord.Embed(title="Mathbot", description="Syntax: $function <parameters> \nList of commands are:", color=0xeee657)
 
     embed.add_field(name="$add X Y", value="Returns the addition of **X** and **Y**", inline=False)
     embed.add_field(name="$minus X Y", value="Returns **X** subtracted by **Y**", inline=False)
     embed.add_field(name="$mult X Y", value="Returns **X** multiplied by **Y**", inline=False)
     embed.add_field(name="$div X Y", value="Returns **X** divided by **Y**", inline=False)
+
+    embed.add_field(name="$plusplus A B C D", value="FOIL method on (**A** + **B**)(**C** + **D**) \n**Float/Whole Numbers Only**", inline=False)
+    embed.add_field(name="$plusminus A B C D", value="FOIL method on (**A** + **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
+    embed.add_field(name="$minusminus A B C D", value="FOIL method on (**A** - **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
+    embed.add_field(name="$minusplus A B C D", value="FOIL method on (**A** - **B**)(**C** + **D**) \n**Float/Whole Numbers Only**", inline=False)
+
     embed.add_field(name="$percentof X Y", value="Returns **X** percent of **Y**", inline=False)
     embed.add_field(name="$info", value="Displays information about Mathbot", inline=False)
     embed.add_field(name="$help", value="Gives this message", inline=False)
