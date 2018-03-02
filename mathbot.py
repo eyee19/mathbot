@@ -1,7 +1,9 @@
 #Mathbot
 #Author: Everett Yee
+#v1.4
 
 import discord
+import math
 print(discord.__version__)
 import asyncio
 from discord.ext import commands
@@ -57,6 +59,18 @@ async def minusplus(ctx, a: float, b: float, c: float, d: float):
     await ctx.send(ctx.message.author.mention + " the answer is:")
     await ctx.send((a*c)+(a*d)-(b*c)-(b*d))
 
+#Square root
+@bot.command()
+async def sqrt(ctx, a: float):
+    await ctx.send(ctx.message.author.mention + " the answer is:")
+    await ctx.send(math.sqrt(a))
+
+#Exponents
+@bot.command()
+async def exp(ctx, a: float, b: float):
+    await ctx.send(ctx.message.author.mention + " the answer is:")
+    await ctx.send(a**b)
+
 #Cool shortcuts
 @bot.command()
 async def percentof(ctx, a: float, b: float):
@@ -79,6 +93,9 @@ async def help(ctx):
     embed.add_field(name="$minus X Y", value="Returns **X** subtracted by **Y**", inline=False)
     embed.add_field(name="$mult X Y", value="Returns **X** multiplied by **Y**", inline=False)
     embed.add_field(name="$div X Y", value="Returns **X** divided by **Y**", inline=False)
+
+    embed.add_field(name="$sqrt X", value="Returns the square root of **X**", inline=False)
+    embed.add_field(name="$exp X Y", value="Returns **X** to the power of **Y**", inline=False)
 
     embed.add_field(name="$plusplus A B C D", value="FOIL method on (**A** + **B**)(**C** + **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$plusminus A B C D", value="FOIL method on (**A** + **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
