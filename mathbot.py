@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v1.4
+#v1.5
 
 import discord
 import math
@@ -71,6 +71,22 @@ async def exp(ctx, a: float, b: float):
     await ctx.send(ctx.message.author.mention + " the answer is:")
     await ctx.send(a**b)
 
+#Pythagorean theorem
+@bot.command()
+async def pyAB(ctx, a: float, b: float): #given the two sides
+    await ctx.send(ctx.message.author.mention + " the side length of C is:")
+    await ctx.send(math.sqrt((a**2) + (b**2)))
+
+@bot.command()
+async def pyAC(ctx, a: float, c: float): #given shorter side and hypotenuse
+    await ctx.send(ctx.message.author.mention + " the side length of B is:")
+    await ctx.send(math.sqrt((c**2) - (a**2)))
+
+@bot.command()
+async def pyBC(ctx, b: float, c: float): #given longer side and hypotenuse
+    await ctx.send(ctx.message.author.mention + " the side length of A is:")
+    await ctx.send(math.sqrt((c**2) - (b**2)))
+
 #Cool shortcuts
 @bot.command()
 async def percentof(ctx, a: float, b: float):
@@ -94,13 +110,17 @@ async def help(ctx):
     embed.add_field(name="$mult X Y", value="Returns **X** multiplied by **Y**", inline=False)
     embed.add_field(name="$div X Y", value="Returns **X** divided by **Y**", inline=False)
 
-    embed.add_field(name="$sqrt X", value="Returns the square root of **X**", inline=False)
-    embed.add_field(name="$exp X Y", value="Returns **X** to the power of **Y**", inline=False)
-
     embed.add_field(name="$plusplus A B C D", value="FOIL method on (**A** + **B**)(**C** + **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$plusminus A B C D", value="FOIL method on (**A** + **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$minusminus A B C D", value="FOIL method on (**A** - **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$minusplus A B C D", value="FOIL method on (**A** - **B**)(**C** + **D**) \n**Float/Whole Numbers Only**", inline=False)
+
+    embed.add_field(name="$sqrt X", value="Returns the square root of **X**", inline=False)
+    embed.add_field(name="$exp X Y", value="Returns **X** to the power of **Y**", inline=False)
+
+    embed.add_field(name="$pyAB A B", value="Returns the length of hypotenuse C given length of side **A** and **B**", inline=False)
+    embed.add_field(name="$pyAC A C", value="Returns the length of side B given length of side **A** and hypotenuse **C**", inline=False)
+    embed.add_field(name="$pyBC B C", value="Returns the length of side A given length of side **B** and hypotenuse **C**", inline=False)
 
     embed.add_field(name="$percentof X Y", value="Returns **X** percent of **Y**", inline=False)
     embed.add_field(name="$info", value="Displays information about Mathbot", inline=False)
