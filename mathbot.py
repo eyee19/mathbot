@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v1.5
+#v1.6
 
 import discord
 import math
@@ -87,6 +87,27 @@ async def pyBC(ctx, b: float, c: float): #given longer side and hypotenuse
     await ctx.send(ctx.message.author.mention + " the side length of A is:")
     await ctx.send(math.sqrt((c**2) - (b**2)))
 
+#Area
+@bot.command() #area of triangle given base and height
+async def areaTri(ctx, b: float, h: float):
+    if (b < 1 or h < 1):
+        await ctx.send(ctx.message.author.mention + " Error: input cannot be negative number or is less than 1.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the area is:")
+        await ctx.send(0.5*(b*h))
+
+#Perimeter
+@bot.command() #perimeter of a circle given the radius
+async def periCircle(ctx, r: float):
+    await ctx.send(ctx.message.author.mention + " the perimeter is:")
+    await ctx.send(2*(math.pi)*r)
+
+#Volume
+@bot.command() #volume of a sphere given the radius
+async def volSphere(ctx, r: float):
+    await ctx.send(ctx.message.author.mention + " the volume is:")
+    await ctx.send((4/3)*math.pi*(r**3))
+
 #Cool shortcuts
 @bot.command()
 async def percentof(ctx, a: float, b: float):
@@ -104,25 +125,32 @@ bot.remove_command("help")
 @bot.command()
 async def help(ctx):
     embed = discord.Embed(title="Mathbot", description="Syntax: $function <parameters> \nList of commands are:", color=0xeee657)
-
+    #Basic math
     embed.add_field(name="$add X Y", value="Returns the addition of **X** and **Y**", inline=False)
     embed.add_field(name="$minus X Y", value="Returns **X** subtracted by **Y**", inline=False)
     embed.add_field(name="$mult X Y", value="Returns **X** multiplied by **Y**", inline=False)
     embed.add_field(name="$div X Y", value="Returns **X** divided by **Y**", inline=False)
-
+    #FOIL
     embed.add_field(name="$plusplus A B C D", value="FOIL method on (**A** + **B**)(**C** + **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$plusminus A B C D", value="FOIL method on (**A** + **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$minusminus A B C D", value="FOIL method on (**A** - **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$minusplus A B C D", value="FOIL method on (**A** - **B**)(**C** + **D**) \n**Float/Whole Numbers Only**", inline=False)
-
+    #Square root, Exponents
     embed.add_field(name="$sqrt X", value="Returns the square root of **X**", inline=False)
     embed.add_field(name="$exp X Y", value="Returns **X** to the power of **Y**", inline=False)
-
+    #Pythagorean theorem
     embed.add_field(name="$pyAB A B", value="Returns the length of hypotenuse C given length of side **A** and **B**", inline=False)
     embed.add_field(name="$pyAC A C", value="Returns the length of side B given length of side **A** and hypotenuse **C**", inline=False)
     embed.add_field(name="$pyBC B C", value="Returns the length of side A given length of side **B** and hypotenuse **C**", inline=False)
-
+    #Area
+    embed.add_field(name="$areaTri B H", value="Returns the area of a triangle given base **B** and height **H**", inline=False)
+    #Perimeter
+    embed.add_field(name="$periCircle R", value="Returns the perimeter length of a circle given radius **R**", inline=False)
+    #Volume
+    embed.add_field(name="$volSphere R", value="Returns the volume of a sphere given radius **R**", inline=False)
+    #Cool shortcuts
     embed.add_field(name="$percentof X Y", value="Returns **X** percent of **Y**", inline=False)
+    #Miscellaneous
     embed.add_field(name="$info", value="Displays information about Mathbot", inline=False)
     embed.add_field(name="$help", value="Gives this message", inline=False)
 
