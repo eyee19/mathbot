@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v1.6
+#v1.7
 
 import discord
 import math
@@ -62,8 +62,11 @@ async def minusplus(ctx, a: float, b: float, c: float, d: float):
 #Square root
 @bot.command()
 async def sqrt(ctx, a: float):
-    await ctx.send(ctx.message.author.mention + " the answer is:")
-    await ctx.send(math.sqrt(a))
+    if (a < 0):
+        await ctx.send(ctx.message.author.mention + " Error: input cannot less than 0.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the answer is:")
+        await ctx.send(math.sqrt(a))
 
 #Exponents
 @bot.command()
@@ -88,31 +91,49 @@ async def pyBC(ctx, b: float, c: float): #given longer side and hypotenuse
     await ctx.send(math.sqrt((c**2) - (b**2)))
 
 #Area
-@bot.command() #area of triangle given base and height
-async def areaTri(ctx, b: float, h: float):
+@bot.command() #area of right triangle given base and height
+async def areaRightTri(ctx, b: float, h: float):
     if (b < 1 or h < 1):
-        await ctx.send(ctx.message.author.mention + " Error: input cannot be negative number or is less than 1.")
+        await ctx.send(ctx.message.author.mention + " Error: base or height cannot be negative number or is less than 1.")
     else:
         await ctx.send(ctx.message.author.mention + " the area is:")
         await ctx.send(0.5*(b*h))
 
+@bot.command() #area of a triangle given lengths of each sides
+async def areaTri(ctx, a: float, b: float, c: float):
+    if (a + b <= c or a + c <= b or b + c <= a):
+        await ctx.send(ctx.message.author.mention + " Error: triangle inequality rule. Sum of any two sides must be greater than the length of the third side.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the area is:")
+        s = (a + b + c)/2 #semiperimeter
+        await ctx.send(math.sqrt(s*(s-a)*(s-b)*(s-c)))
+
 #Perimeter
 @bot.command() #perimeter of a circle given the radius
 async def periCircle(ctx, r: float):
-    await ctx.send(ctx.message.author.mention + " the perimeter is:")
-    await ctx.send(2*(math.pi)*r)
+    if (r <= 0):
+        await ctx.send(ctx.message.author.mention + " Error: radius cannot be 0 or less than 0.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the perimeter is:")
+        await ctx.send(2*(math.pi)*r)
 
 #Volume
 @bot.command() #volume of a sphere given the radius
 async def volSphere(ctx, r: float):
-    await ctx.send(ctx.message.author.mention + " the volume is:")
-    await ctx.send((4/3)*math.pi*(r**3))
+    if (r <= 0):
+        await ctx.send(ctx.message.author.mention + " Error: radius cannot be 0 or less than 0.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the volume is:")
+        await ctx.send((4/3)*math.pi*(r**3))
 
 #Cool shortcuts
 @bot.command()
 async def percentof(ctx, a: float, b: float):
-    await ctx.send(ctx.message.author.mention + " the answer is:")
-    await ctx.send((a*b)/100)
+    if (a < 0):
+        await ctx.send(ctx.message.author.mention + " Error: cannot have a negative percentage.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the answer is:")
+        await ctx.send((a*b)/100)
 
 @bot.command()
 async def info(ctx):
@@ -143,7 +164,8 @@ async def help(ctx):
     embed.add_field(name="$pyAC A C", value="Returns the length of side B given length of side **A** and hypotenuse **C**", inline=False)
     embed.add_field(name="$pyBC B C", value="Returns the length of side A given length of side **B** and hypotenuse **C**", inline=False)
     #Area
-    embed.add_field(name="$areaTri B H", value="Returns the area of a triangle given base **B** and height **H**", inline=False)
+    embed.add_field(name="$areaRightTri B H", value="Returns the area of a right triangle given base **B** and height **H**", inline=False)
+    embed.add_field(name="$areaTri A B C", value="Returns the area of a triangle given side lengths **A**, **B**, and **C**", inline=False)
     #Perimeter
     embed.add_field(name="$periCircle R", value="Returns the perimeter length of a circle given radius **R**", inline=False)
     #Volume
