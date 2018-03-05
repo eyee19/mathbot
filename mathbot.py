@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v1.7
+#v1.8
 
 import discord
 import math
@@ -73,6 +73,15 @@ async def sqrt(ctx, a: float):
 async def exp(ctx, a: float, b: float):
     await ctx.send(ctx.message.author.mention + " the answer is:")
     await ctx.send(a**b)
+
+#Factorials
+@bot.command()
+async def fact(ctx, x: int):
+    if (x < 1):
+        await ctx.send(ctx.message.author.mention + " Error: factorial function only accepts inputs of 1 or more.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the factorial is:")
+        await ctx.send(math.factorial(x))
 
 #Pythagorean theorem
 @bot.command()
@@ -156,9 +165,10 @@ async def help(ctx):
     embed.add_field(name="$plusminus A B C D", value="FOIL method on (**A** + **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$minusminus A B C D", value="FOIL method on (**A** - **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$minusplus A B C D", value="FOIL method on (**A** - **B**)(**C** + **D**) \n**Float/Whole Numbers Only**", inline=False)
-    #Square root, Exponents
+    #Square root, Exponents, Factorials
     embed.add_field(name="$sqrt X", value="Returns the square root of **X**", inline=False)
     embed.add_field(name="$exp X Y", value="Returns **X** to the power of **Y**", inline=False)
+    embed.add_field(name="$fact X", value="Returns the factorial of **X**", inline=False)
     #Pythagorean theorem
     embed.add_field(name="$pyAB A B", value="Returns the length of hypotenuse C given length of side **A** and **B**", inline=False)
     embed.add_field(name="$pyAC A C", value="Returns the length of side B given length of side **A** and hypotenuse **C**", inline=False)
