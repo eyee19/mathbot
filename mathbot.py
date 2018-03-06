@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v1.8
+#v1.9
 
 import discord
 import math
@@ -35,8 +35,11 @@ async def mult(ctx, a: float, b: float):
 
 @bot.command()
 async def div(ctx, a: float, b: float):
-    await ctx.send(ctx.message.author.mention + " the answer is:")
-    await ctx.send(a/b)
+    if (b == 0):
+        await ctx.send(ctx.message.author.mention + " Error: cannot divide by 0.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the answer is:")
+        await ctx.send(a/b)
 
 #FOIL method, (++) (+-) (--) (-+), only for whole numbers, not binomials
 @bot.command()
@@ -135,6 +138,22 @@ async def volSphere(ctx, r: float):
         await ctx.send(ctx.message.author.mention + " the volume is:")
         await ctx.send((4/3)*math.pi*(r**3))
 
+@bot.command() #volume of a cylinder given radius and height
+async def volCyl(ctx, r: float, h: float):
+    if (r <= 0 or h <= 0):
+        await ctx.send(ctx.message.author.mention + " Error: radius or height cannot be 0 or less than 0.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the volume is:")
+        await ctx.send(math.pi*(r**2)*h)
+
+@bot.command() #volume of a cone given radius and height
+async def volCone(ctx, r: float, h: float):
+    if (r <= 0 or h <= 0):
+        await ctx.send(ctx.message.author.mention + " Error: radius or height cannot be 0 or less than 0.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the volume is:")
+        await ctx.send((math.pi*(r**2)*h)/3)
+
 #Cool shortcuts
 @bot.command()
 async def percentof(ctx, a: float, b: float):
@@ -180,6 +199,8 @@ async def help(ctx):
     embed.add_field(name="$periCircle R", value="Returns the perimeter length of a circle given radius **R**", inline=False)
     #Volume
     embed.add_field(name="$volSphere R", value="Returns the volume of a sphere given radius **R**", inline=False)
+    embed.add_field(name="$volCyl R H", value="Returns the volume of a cylinder given radius **R** and height **H**", inline=False)
+    embed.add_field(name="$volCone R H", value="Returns the volume of a cone given radius **R** and height **H**", inline=False)
     #Cool shortcuts
     embed.add_field(name="$percentof X Y", value="Returns **X** percent of **Y**", inline=False)
     #Miscellaneous
