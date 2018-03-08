@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v2.0
+#v2.1
 
 import discord
 import math
@@ -162,6 +162,14 @@ async def volCone(ctx, r: float, h: float):
         await ctx.send(ctx.message.author.mention + " the volume is:")
         await ctx.send((math.pi*(r**2)*h)/3)
 
+@bot.command() #volume of a pyramid given base length, base width, and height
+async def volPyra(ctx, bl: float, bw: float, h: float):
+    if (bl <= 0 or bw <= 0 or h <= 0):
+        await ctx.send(ctx.message.author.mention + " Error: base or height length cannot be 0 or less than 0.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the volume is:")
+        await ctx.send((bl*bw*h)/3)
+
 #Cool shortcuts
 @bot.command()
 async def percentof(ctx, a: float, b: float):
@@ -210,6 +218,7 @@ async def help(ctx):
     embed.add_field(name="$volSphere R", value="Returns the volume of a sphere given radius **R**", inline=False)
     embed.add_field(name="$volCyl R H", value="Returns the volume of a cylinder given radius **R** and height **H**", inline=False)
     embed.add_field(name="$volCone R H", value="Returns the volume of a cone given radius **R** and height **H**", inline=False)
+    embed.add_field(name="$volPyra BL BW H", value="Returns the volume of a pyramid given base length **BL**, base width **BW**, and height **H**", inline=False)
     #Cool shortcuts
     embed.add_field(name="$percentof X Y", value="Returns **X** percent of **Y**", inline=False)
     #Miscellaneous
