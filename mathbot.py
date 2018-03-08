@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v1.9
+#v2.0
 
 import discord
 import math
@@ -120,6 +120,14 @@ async def areaTri(ctx, a: float, b: float, c: float):
         s = (a + b + c)/2 #semiperimeter
         await ctx.send(math.sqrt(s*(s-a)*(s-b)*(s-c)))
 
+@bot.command() #area of a trapezoid given height and base 1 and base 2
+async def areaTrap(ctx, h: float, b1: float, b2: float):
+    if (h <= 0 or b1 <= 0 or b2 <= 0):
+        await ctx.send(ctx.message.author.mention + " Error: height, base 1, or base 2 cannot be 0.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the area is:")
+        await ctx.send(((b1 + b2)/2)*h)
+
 #Perimeter
 @bot.command() #perimeter of a circle given the radius
 async def periCircle(ctx, r: float):
@@ -195,6 +203,7 @@ async def help(ctx):
     #Area
     embed.add_field(name="$areaRightTri B H", value="Returns the area of a right triangle given base **B** and height **H**", inline=False)
     embed.add_field(name="$areaTri A B C", value="Returns the area of a triangle given side lengths **A**, **B**, and **C**", inline=False)
+    embed.add_field(name="$areaTrap H B1 B2", value="Returns the area of a trapezoid given height **H** and length of base one **B1** and base two **B2**", inline=False)
     #Perimeter
     embed.add_field(name="$periCircle R", value="Returns the perimeter length of a circle given radius **R**", inline=False)
     #Volume
