@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v2.2
+#v2.3
 
 import discord
 import math
@@ -196,6 +196,22 @@ async def percentof(ctx, a: float, b: float):
         await ctx.send(ctx.message.author.mention + " the answer is:")
         await ctx.send((a*b)/100)
 
+#Decision trees
+
+@bot.command()
+async def sEntropy(ctx, y: int, n: int): #Starting entropy for a binary variable (yes/no)
+    if (y == 0 and n == 0):
+        await ctx.send(ctx.message.author.mention + " Starting entropy is 0.")
+    elif (y < 0 or n < 0):
+        await ctx.send(ctx.message.author.mention + " Error: input cannot be negative.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the starting entropy is:")
+        total = y + n
+        yes = -1*(y/total)*math.log((y/total),2)
+        no = (n/total)*math.log((n/total),2)
+        await ctx.send(yes-no)
+
+#Info
 @bot.command()
 async def info(ctx):
     embed = discord.Embed(title="Mathbot", description="A bot that does simple math calculations and shortcuts.", color=0xeee657)
@@ -206,45 +222,108 @@ async def info(ctx):
 bot.remove_command("help")
 @bot.command()
 async def help(ctx):
-    embed = discord.Embed(title="Mathbot", description="Syntax: $function <parameters> \nList of commands are:", color=0xeee657)
+    embed = discord.Embed(title="Mathbot", description="List of sections are:", color=0xeee657)
+
+    embed.add_field(name="$basic", value="Basic math (+,-,*,/)", inline=False)
+    embed.add_field(name="$foil", value="First, outer, inner, last", inline=False)
+    embed.add_field(name="$power", value="Power, factorials, exponents", inline=False)
+    embed.add_field(name="$pytha", value="Pythagorean theorem", inline=False)
+    embed.add_field(name="$area", value="Area formulas", inline=False)
+    embed.add_field(name="$peri", value="Perimeter formulas", inline=False)
+    embed.add_field(name="$volume", value="Volume formulas", inline=False)
+    embed.add_field(name="$angular", value="Angular conversions", inline=False)
+    embed.add_field(name="$shortcut", value="Cool shortcuts", inline=False)
+    embed.add_field(name="$tree", value="Decision trees", inline=False)
+    #Miscellaneous
+    embed.add_field(name="$info", value="Displays information about Mathbot", inline=False)
+    embed.add_field(name="$help", value="Gives this message", inline=False)
+
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def basic(ctx):
+    embed = discord.Embed(title="Basic math", description="Syntax: $function <parameters>", color=0xeee657)
     #Basic math
     embed.add_field(name="$add X Y", value="Returns the addition of **X** and **Y**", inline=False)
     embed.add_field(name="$minus X Y", value="Returns **X** subtracted by **Y**", inline=False)
     embed.add_field(name="$mult X Y", value="Returns **X** multiplied by **Y**", inline=False)
     embed.add_field(name="$div X Y", value="Returns **X** divided by **Y**", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def foil(ctx):
+    embed = discord.Embed(title="FOIL method", description="Syntax: $function <parameters>", color=0xeee657)
     #FOIL
     embed.add_field(name="$plusplus A B C D", value="FOIL method on (**A** + **B**)(**C** + **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$plusminus A B C D", value="FOIL method on (**A** + **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$minusminus A B C D", value="FOIL method on (**A** - **B**)(**C** - **D**) \n**Float/Whole Numbers Only**", inline=False)
     embed.add_field(name="$minusplus A B C D", value="FOIL method on (**A** - **B**)(**C** + **D**) \n**Float/Whole Numbers Only**", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def power(ctx):
+    embed = discord.Embed(title="Square root, factorials, exponents", description="Syntax: $function <parameters>", color=0xeee657)
     #Square root, Exponents, Factorials
     embed.add_field(name="$sqrt X", value="Returns the square root of **X**", inline=False)
     embed.add_field(name="$exp X Y", value="Returns **X** to the power of **Y**", inline=False)
     embed.add_field(name="$fact X", value="Returns the factorial of **X**", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def pytha(ctx):
+    embed = discord.Embed(title="Pythagorean theorem", description="Syntax: $function <parameters>", color=0xeee657)
     #Pythagorean theorem
     embed.add_field(name="$pyAB A B", value="Returns the length of hypotenuse C given length of side **A** and **B**", inline=False)
     embed.add_field(name="$pyAC A C", value="Returns the length of side B given length of side **A** and hypotenuse **C**", inline=False)
     embed.add_field(name="$pyBC B C", value="Returns the length of side A given length of side **B** and hypotenuse **C**", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def area(ctx):
+    embed = discord.Embed(title="Area formulas", description="Syntax: $function <parameters>", color=0xeee657)
     #Area
     embed.add_field(name="$areaRightTri B H", value="Returns the area of a right triangle given base **B** and height **H**", inline=False)
     embed.add_field(name="$areaTri A B C", value="Returns the area of a triangle given side lengths **A**, **B**, and **C**", inline=False)
     embed.add_field(name="$areaTrap H B1 B2", value="Returns the area of a trapezoid given height **H** and length of base one **B1** and base two **B2**", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def peri(ctx):
+    embed = discord.Embed(title="Perimeter formulas", description="Syntax: $function <parameters>", color=0xeee657)
     #Perimeter
     embed.add_field(name="$periCircle R", value="Returns the perimeter length of a circle given radius **R**", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def volume(ctx):
+    embed = discord.Embed(title="Volume formulas", description="Syntax: $function <parameters>", color=0xeee657)
     #Volume
     embed.add_field(name="$volSphere R", value="Returns the volume of a sphere given radius **R**", inline=False)
     embed.add_field(name="$volCyl R H", value="Returns the volume of a cylinder given radius **R** and height **H**", inline=False)
     embed.add_field(name="$volCone R H", value="Returns the volume of a cone given radius **R** and height **H**", inline=False)
     embed.add_field(name="$volPyra BL BW H", value="Returns the volume of a pyramid given base length **BL**, base width **BW**, and height **H**", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def angular(ctx):
+    embed = discord.Embed(title="Angular conversion", description="Syntax: $function <parameters>", color=0xeee657)
     #Angular conversion
     embed.add_field(name="$degree X", value="Converts **X** radians to degrees", inline=False)
     embed.add_field(name="$radian X", value="Converts **X** degrees to radians", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def shortcut(ctx):
+    embed = discord.Embed(title="Cool shortcuts", description="Syntax: $function <parameters>", color=0xeee657)
     #Cool shortcuts
     embed.add_field(name="$percentof X Y", value="Returns **X** percent of **Y**", inline=False)
-    #Miscellaneous
-    embed.add_field(name="$info", value="Displays information about Mathbot", inline=False)
-    embed.add_field(name="$help", value="Gives this message", inline=False)
+    await ctx.send(embed=embed)
 
+@bot.command()
+async def tree(ctx):
+    embed = discord.Embed(title="Decision trees", description="Syntax: $function <parameters>", color=0xeee657)
+    #Decision trees
+    embed.add_field(name="$sEntropy Y N", value="Returns the starting entropy given **Y** number of Yes and **N** number of No", inline=False)
     await ctx.send(embed=embed)
 
 bot.run("NDE3MDQwNDczMzE2Nzg2MTg2.DXc0Pw.rtggjKy6O0fxb2UVFLMnYlsorY8")
