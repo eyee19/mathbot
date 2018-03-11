@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v2.3
+#v2.4
 
 import discord
 import math
@@ -211,6 +211,20 @@ async def sEntropy(ctx, y: int, n: int): #Starting entropy for a binary variable
         no = (n/total)*math.log((n/total),2)
         await ctx.send(yes-no)
 
+#Information gain
+@bot.command() #for one category of an attribute, given yes/no for the starting node, and yes/no for the category of the attribute
+async def infoGain(ctx, y: int, n: int, y1: int, n1: int):
+    if (y < 0 or n < 0 or y1 < 0 or n1 < 0):
+        await ctx.send(ctx.message.author.mention + " Error: input cannot be negative.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the information gain for this attribute category is:")
+        total = y + n
+        total1 = y1 + n1
+        yes1 = -1*(y1/total1) * math.log((y1/total1),2)
+        no1 = (n1/total1) * math.log((n1/total1),2)
+        entropy = yes1 - no1
+        infoGain = (total1/total) * entropy
+        await ctx.send(infoGain)
 #Info
 @bot.command()
 async def info(ctx):
@@ -324,6 +338,7 @@ async def tree(ctx):
     embed = discord.Embed(title="Decision trees", description="Syntax: $function <parameters>", color=0xeee657)
     #Decision trees
     embed.add_field(name="$sEntropy Y N", value="Returns the starting entropy given **Y** number of Yes and **N** number of No", inline=False)
+    embed.add_field(name="$infoGain Y N Y1 N1", value="Returns the information gain for a specific category in an attribute given **Y** number of Yes (from starting node) and **N** number of No (from starting node), and given **Y1** number of Yes (from category) and **N1** number of No (from category)", inline=False)
     await ctx.send(embed=embed)
 
 bot.run("NDE3MDQwNDczMzE2Nzg2MTg2.DXc0Pw.rtggjKy6O0fxb2UVFLMnYlsorY8")
