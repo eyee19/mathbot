@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v2.4
+#v2.5
 
 import discord
 import math
@@ -187,6 +187,15 @@ async def radian(ctx, x: float):
         await ctx.send(ctx.message.author.mention + " the answer is:")
         await ctx.send(math.radians(x))
 
+#Time and distance
+@bot.command() #calculate MPH given feet per second
+async def mph(ctx, x: float):
+    if (x <= 0):
+        await ctx.send(ctx.message.author.mention + " Error: input less than 0.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the answer (in miles per hour) is:")
+        await ctx.send(x*(2/3))
+
 #Cool shortcuts
 @bot.command()
 async def percentof(ctx, a: float, b: float):
@@ -197,7 +206,6 @@ async def percentof(ctx, a: float, b: float):
         await ctx.send((a*b)/100)
 
 #Decision trees
-
 @bot.command()
 async def sEntropy(ctx, y: int, n: int): #Starting entropy for a binary variable (yes/no)
     if (y == 0 and n == 0):
@@ -246,6 +254,7 @@ async def help(ctx):
     embed.add_field(name="$peri", value="Perimeter formulas", inline=False)
     embed.add_field(name="$volume", value="Volume formulas", inline=False)
     embed.add_field(name="$angular", value="Angular conversions", inline=False)
+    embed.add_field(name="$tAndD", value="Time and distance", inline=False)
     embed.add_field(name="$shortcut", value="Cool shortcuts", inline=False)
     embed.add_field(name="$tree", value="Decision trees", inline=False)
     #Miscellaneous
@@ -324,6 +333,13 @@ async def angular(ctx):
     #Angular conversion
     embed.add_field(name="$degree X", value="Converts **X** radians to degrees", inline=False)
     embed.add_field(name="$radian X", value="Converts **X** degrees to radians", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def tAndD(ctx):
+    embed = discord.Embed(title="Time and distance", description="Syntax: $function <parameters>", color=0xeee657)
+    #Time and distance
+    embed.add_field(name="$mph X", value="Returns miles per hour given **X** feet per second", inline=False)
     await ctx.send(embed=embed)
 
 @bot.command()
