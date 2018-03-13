@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v2.5
+#v2.6
 
 import discord
 import math
@@ -233,6 +233,17 @@ async def infoGain(ctx, y: int, n: int, y1: int, n1: int):
         entropy = yes1 - no1
         infoGain = (total1/total) * entropy
         await ctx.send(infoGain)
+
+#Data communications/networking formulas
+@bot.command()
+async def nyquist(ctx, bandwidth: int, signal: int): #Nyquist, for a noiseless channel given bandwidth in hertz and signal level
+    if (bandwidth < 0 or signal < 0):
+        await ctx.send(ctx.message.author.mention + " Error: input cannot be negative.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the maximum data rate (in bits/second) is:")
+        mdr = (2*bandwidth)*(math.log(signal,2))
+        await ctx.send(mdr)
+
 #Info
 @bot.command()
 async def info(ctx):
@@ -257,6 +268,7 @@ async def help(ctx):
     embed.add_field(name="$tAndD", value="Time and distance", inline=False)
     embed.add_field(name="$shortcut", value="Cool shortcuts", inline=False)
     embed.add_field(name="$tree", value="Decision trees", inline=False)
+    embed.add_field(name="$network", value="Data communications/networking", inline=False)
     #Miscellaneous
     embed.add_field(name="$info", value="Displays information about Mathbot", inline=False)
     embed.add_field(name="$help", value="Gives this message", inline=False)
@@ -355,6 +367,13 @@ async def tree(ctx):
     #Decision trees
     embed.add_field(name="$sEntropy Y N", value="Returns the starting entropy given **Y** number of Yes and **N** number of No", inline=False)
     embed.add_field(name="$infoGain Y N Y1 N1", value="Returns the information gain for a specific category in an attribute given **Y** number of Yes (from starting node) and **N** number of No (from starting node), and given **Y1** number of Yes (from category) and **N1** number of No (from category)", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def network(ctx):
+    embed = discord.Embed(title="Data communications/networking", description="Syntax: $function <parameters>", color=0xeee657)
+    #Nyquist
+    embed.add_field(name="$nyquist H V", value="Returns maximum data rate in bits/second given bandwidth **H** in hertz and signal level **V**", inline=False)
     await ctx.send(embed=embed)
 
 bot.run("NDE3MDQwNDczMzE2Nzg2MTg2.DXc0Pw.rtggjKy6O0fxb2UVFLMnYlsorY8")
