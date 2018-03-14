@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v2.6
+#v2.7
 
 import discord
 import math
@@ -244,6 +244,17 @@ async def nyquist(ctx, bandwidth: int, signal: int): #Nyquist, for a noiseless c
         mdr = (2*bandwidth)*(math.log(signal,2))
         await ctx.send(mdr)
 
+@bot.command()
+async def shannon(ctx, bandwidth: int, noise: float): #Shannon, given bandwidth H and signal to noise ratio S/N
+    if (bandwidth < 0 or noise < 0):
+        await ctx.send(ctx.message.author.mention + " Error: input cannot be negative.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the maximum data rate (in bits/second) is:")
+        left = noise / 10.0
+        sn = 10**left
+        mdr = (bandwidth) * (math.log(1+sn,2))
+        await ctx.send(mdr)
+
 #Info
 @bot.command()
 async def info(ctx):
@@ -374,6 +385,8 @@ async def network(ctx):
     embed = discord.Embed(title="Data communications/networking", description="Syntax: $function <parameters>", color=0xeee657)
     #Nyquist
     embed.add_field(name="$nyquist H V", value="Returns maximum data rate in bits/second given bandwidth **H** in hertz and signal level **V**", inline=False)
+    #Shannon
+    embed.add_field(name="$shannon H N", value="Returns maximum data rate in bits/second given bandwidth **H** in hertz and noise ratio **N**", inline=False)
     await ctx.send(embed=embed)
 
 bot.run("NDE3MDQwNDczMzE2Nzg2MTg2.DXc0Pw.rtggjKy6O0fxb2UVFLMnYlsorY8")
