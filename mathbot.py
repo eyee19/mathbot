@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v2.7
+#v2.8
 
 import discord
 import math
@@ -245,6 +245,16 @@ async def nyquist(ctx, bandwidth: int, signal: int): #Nyquist, for a noiseless c
         await ctx.send(mdr)
 
 @bot.command()
+async def snRatio(ctx, db: int): #calculate signal to noise ratio itself given decibel level
+    if (db < 0):
+        await ctx.send(ctx.message.author.mention + " Error: input cannot be negative.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the signal to noise ratio is:")
+        left = db / 10
+        sn = 10**left
+        await ctx.send(sn)
+
+@bot.command()
 async def shannon(ctx, bandwidth: int, noise: float): #Shannon, given bandwidth H and signal to noise ratio S/N
     if (bandwidth < 0 or noise < 0):
         await ctx.send(ctx.message.author.mention + " Error: input cannot be negative.")
@@ -385,6 +395,8 @@ async def network(ctx):
     embed = discord.Embed(title="Data communications/networking", description="Syntax: $function <parameters>", color=0xeee657)
     #Nyquist
     embed.add_field(name="$nyquist H V", value="Returns maximum data rate in bits/second given bandwidth **H** in hertz and signal level **V**", inline=False)
+    #S/N Ratio by itself
+    embed.add_field(name="$snRatio DB", value="Returns the signal to noise ratio given the decibel level **DB**", inline=False)
     #Shannon
     embed.add_field(name="$shannon H N", value="Returns maximum data rate in bits/second given bandwidth **H** in hertz and noise ratio **N**", inline=False)
     await ctx.send(embed=embed)
