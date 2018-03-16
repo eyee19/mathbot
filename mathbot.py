@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v2.8
+#v2.9
 
 import discord
 import math
@@ -265,6 +265,14 @@ async def shannon(ctx, bandwidth: int, noise: float): #Shannon, given bandwidth 
         mdr = (bandwidth) * (math.log(1+sn,2))
         await ctx.send(mdr)
 
+@bot.command()
+async def dtrans(ctx, bits: float, rate: float): #Transmission delay in seconds given number of bits in bits and data rate in bits per second
+    if (bits < 0 or rate < 0):
+        await ctx.send(ctx.message.author.mention + " Error: input cannot be negative.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the transmission delay in seconds is:")
+        await ctx.send(bits / rate)
+
 #Info
 @bot.command()
 async def info(ctx):
@@ -399,6 +407,8 @@ async def network(ctx):
     embed.add_field(name="$snRatio DB", value="Returns the signal to noise ratio given the decibel level **DB**", inline=False)
     #Shannon
     embed.add_field(name="$shannon H N", value="Returns maximum data rate in bits/second given bandwidth **H** in hertz and noise ratio **N**", inline=False)
+    #Transmission delay
+    embed.add_field(name="$dtrans B R", value="Returns the transmission delay in seconds given number of bits **B** and data rate **R**", inline=False)
     await ctx.send(embed=embed)
 
 bot.run("NDE3MDQwNDczMzE2Nzg2MTg2.DXc0Pw.rtggjKy6O0fxb2UVFLMnYlsorY8")
