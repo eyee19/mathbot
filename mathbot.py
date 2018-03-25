@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v2.9
+#v3.0
 
 import discord
 import math
@@ -273,6 +273,14 @@ async def dtrans(ctx, bits: float, rate: float): #Transmission delay in seconds 
         await ctx.send(ctx.message.author.mention + " the transmission delay in seconds is:")
         await ctx.send(bits / rate)
 
+@bot.command()
+async def dprop(ctx, dist: float, speed: float): #Propagation delay in seconds given distance in meters and speed in m/s
+    if (dist < 0 or speed < 0):
+        await ctx.send(ctx.message.author.mention + " Error: input cannot be negative.")
+    else:
+        await ctx.send(ctx.message.author.mention + " the propagation delay in seconds is:")
+        await ctx.send(dist / speed)
+
 #Info
 @bot.command()
 async def info(ctx):
@@ -409,6 +417,8 @@ async def network(ctx):
     embed.add_field(name="$shannon H N", value="Returns maximum data rate in bits/second given bandwidth **H** in hertz and noise ratio **N**", inline=False)
     #Transmission delay
     embed.add_field(name="$dtrans B R", value="Returns the transmission delay in seconds given number of bits **B** and data rate **R**", inline=False)
+    #Propagation delay
+    embed.add_field(name="$dprop D S", value="Returns the propagation delay in seconds given distance **D** and speed **S**", inline=False)
     await ctx.send(embed=embed)
 
 bot.run("NDE3MDQwNDczMzE2Nzg2MTg2.DXc0Pw.rtggjKy6O0fxb2UVFLMnYlsorY8")
