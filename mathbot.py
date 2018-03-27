@@ -1,6 +1,6 @@
 #Mathbot
 #Author: Everett Yee
-#v3.0
+#v3.1
 
 import discord
 import math
@@ -281,6 +281,20 @@ async def dprop(ctx, dist: float, speed: float): #Propagation delay in seconds g
         await ctx.send(ctx.message.author.mention + " the propagation delay in seconds is:")
         await ctx.send(dist / speed)
 
+#Quadratic formula
+@bot.command()
+async def quad(ctx, a: float, b: float, c: float):
+    if (a == 0):
+        await ctx.send(ctx.message.author.mention + " Error: cannot divide by 0.")
+    else:
+        negB = b * -1
+        positive = (negB + math.sqrt((b**2) - (4*a*c))) / 2*a
+        negative = (negB - math.sqrt((b**2) - (4*a*c))) / 2*a
+        await ctx.send(ctx.message.author.mention + " the positive x is: ")
+        await ctx.send(positive)
+        await ctx.send(ctx.message.author.mention + " the negative x is: ")
+        await ctx.send(negative)
+
 #Info
 @bot.command()
 async def info(ctx):
@@ -306,6 +320,7 @@ async def help(ctx):
     embed.add_field(name="$shortcut", value="Cool shortcuts", inline=False)
     embed.add_field(name="$tree", value="Decision trees", inline=False)
     embed.add_field(name="$network", value="Data communications/networking", inline=False)
+    embed.add_field(name="$other", value="Quadratic formula and other functions", inline=False)
     #Miscellaneous
     embed.add_field(name="$info", value="Displays information about Mathbot", inline=False)
     embed.add_field(name="$help", value="Gives this message", inline=False)
@@ -419,6 +434,13 @@ async def network(ctx):
     embed.add_field(name="$dtrans B R", value="Returns the transmission delay in seconds given number of bits **B** and data rate **R**", inline=False)
     #Propagation delay
     embed.add_field(name="$dprop D S", value="Returns the propagation delay in seconds given distance **D** and speed **S**", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def other(ctx):
+    embed = discord.Embed(title="Other functions", description="Syntax: $function <parameters>", color=0xeee657)
+    #Quadratic formula
+    embed.add_field(name="$quad A B C", value="Returns the positive and negative x values from a quadratic equation given **A**, **B**, and **C**", inline=False)
     await ctx.send(embed=embed)
 
 bot.run("NDE3MDQwNDczMzE2Nzg2MTg2.DXc0Pw.rtggjKy6O0fxb2UVFLMnYlsorY8")
