@@ -3,44 +3,47 @@ A Discord bot for simple calculations.
 
 ### Current Sections
 
-$basic
+- $basic
 Basic math (+,-,*,/)
 
-$foil
+- $foil
 First, outer, inner, last
 
-$power
+- $power
 Power, factorials, exponents
 
-$pytha
+- $pytha
 Pythagorean theorem
 
-$area
+- $area
 Area formulas
 
-$peri
+- $peri
 Perimeter formulas
 
-$volume
+- $volume
 Volume formulas
 
-$angular
+- $angular
 Angular conversions
 
-$tAndD
+- $tAndD
 Time and distance
 
-$shortcut
+- $shortcut
 Cool shortcuts
 
-$tree
+- $tree
 Decision trees
 
-$network
+- $network
 Data communications/networking
 
-$info
+- $other
+Quadratic formula and other functions
+
+- $info
 Displays information about Mathbot
 
-$help
+- $help
 Gives this message
