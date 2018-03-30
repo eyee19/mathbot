@@ -1,9 +1,10 @@
-# mathbot
+# Mathbot
 A Discord bot for simple calculations.
 
 ### Current Sections
 
 - $basic
+
    Basic math (+,-,*,/)
 
 - $foil
