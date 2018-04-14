@@ -300,7 +300,7 @@ async def quad(ctx, a: float, b: float, c: float):
 async def info(ctx):
     embed = discord.Embed(title="Mathbot", description="A bot that does simple math calculations and shortcuts.", color=0xeee657)
     # give users a link to invite this bot to their server
-    embed.add_field(name="Invite", value="[Invite link(paste this in your browser)](https://discordapp.com/api/oauth2/authorize?client_id=417040473316786186&permissions=2048&scope=bot)")
+    embed.add_field(name="Invite", value="[Invite link(paste this in your browser)]()")
     await ctx.send(embed=embed)
 
 bot.remove_command("help")
@@ -443,4 +443,4 @@ async def other(ctx):
     embed.add_field(name="$quad A B C", value="Returns the positive and negative x values from a quadratic equation given **A**, **B**, and **C**", inline=False)
     await ctx.send(embed=embed)
 
-bot.run("NDE3MDQwNDczMzE2Nzg2MTg2.DXc0Pw.rtggjKy6O0fxb2UVFLMnYlsorY8")
+bot.run("token")
